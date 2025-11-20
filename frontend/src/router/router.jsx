@@ -3,16 +3,21 @@ import SignUp from "../pages/SignUp"
 import SignIn from "../pages/SignIn/"
 import Layout from "../pages/Layout"
 import Board from "../pages/Board"
+import Logout from "../pages/Logout"
 
 export const router = createBrowserRouter(
     [
         {
-            path: "/signup",
+            path: "/Signup",
             element: <SignUp />
         },  
         {
-            path: "/signin",
+            path: "/Signin",
             element: <SignIn />
+        },
+        {
+            path: "/Logout",
+            element: <Logout/>
         },
         {
             path: "/",

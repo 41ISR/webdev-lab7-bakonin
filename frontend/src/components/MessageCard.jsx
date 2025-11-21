@@ -1,5 +1,27 @@
-const MessageCard = ({content, username, createdAt}) => {
-    const isOwn = false
+import { useUserStore } from "../store/useUserStore"
+import useMessageStore from "../store/useMessageStore"
+import { api } from "../api/api"
+
+const MessageCard = ({id, content, username, createdAt, userId, likedBy}) => {
+    const {session} = useUserStore()
+    const {getMessages} = useMessageStore()
+
+    const handleDelete = async () => {
+        await api.deleteMessage(id)
+        await getMessages()
+    }
+
+    const handleReport = async () => {
+        await api.reportMessage(id)
+        await getMessages()
+    }
+
+    const handleLike = async () => {
+        await api.likeMessage(id)
+        await getMessages()
+    }
+    const isLiked = likedBy.some((likedUserId) => likedUserId === session?.user.id)
+    const isOwn = session?.user.id === userId
     return (
         <div className="message-card">
             <div className="message-content">
@@ -10,9 +32,9 @@ const MessageCard = ({content, username, createdAt}) => {
                 <span className="message-time">{createdAt}</span>
                 </div>     
         <div className="message-actions">
-            <div className="action-button">💗</div>
-            <div className="action-button">💭</div>
-            {isOwn && <div className="action-button delete">💫</div>}
+            <button className="action-button" onClick = {handleLike}>💗</button>
+            <button className="action-button" onClick = {handleReport}>💭</button>
+            {isOwn && <button className="action-button delete" onClick = {handleDelete}>💫</button>}
         </div>
         </div>
     )

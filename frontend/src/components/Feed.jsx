@@ -8,6 +8,9 @@ const Feed = ({title = "Сообщения"}) => {
     const { messages, getMessages} = useMessageStore()
     useEffect(() => {
         getMessages()
+        setTimerId(setInterval(() = > {
+            getMessages()
+        }, 5000))
     },
     [])
     

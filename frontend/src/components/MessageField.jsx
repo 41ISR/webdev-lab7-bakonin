@@ -12,7 +12,6 @@ const MessageField = () => {
         try {
             await api.sendMessage(message)
             await getMessages()
-            api.sendMessage(message)
         } catch (error) {
             console.error(error)
         }
